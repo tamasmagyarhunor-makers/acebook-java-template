@@ -7,6 +7,32 @@
         <link rel="stylesheet" href="/main.css" />
     </head>
     <body>
+    <script>
+    function likePost(button) {
+        const postId = button.dataset.postId;
+        fetch(`/posts/${postId}/like`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(updatedPost => {
+            // Update the like count and any other relevant UI elements
+            const likeCountElement = button.previousElementSibling; // Assuming like count is before the button
+            likeCountElement.textContent = updatedPost.likes;
+        });
+    }
+    function dislikePost(button) {
+        const postId = button.dataset.postId;
+        fetch(`/posts/${postId}/dislike`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(updatedPost => {
+            // Update the dislike count and any other relevant UI elements
+            const dislikeCountElement = button.previousElementSibling; // Assuming dislike count is before the button
+            dislikeCountElement.textContent = updatedPost.dislikes;
+        });
+    }
+    </script>
 
     <h1>Posts</h1>
 
@@ -22,7 +48,10 @@
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
         <li th:text="${post.likes}" />
+        <button th:attr="data-post-id=${post.id}" onclick="likePost(this)">Like</button>
+
         <li th:text="${post.dislikes}" />
+        <button th:attr="data-post-id=${post.id}" onclick="dislikePost(this)">Dislike</button>
     </ul>
 
     </body>
