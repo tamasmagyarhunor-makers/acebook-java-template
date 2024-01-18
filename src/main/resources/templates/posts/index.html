@@ -21,6 +21,8 @@
 
     <ul th:each="post: ${posts}">
         <li th:text="${post.content}" />
+        <li th:text="${post.likes}" />
+        <li th:text="${post.dislikes}" />
     </ul>
 
     </body>
