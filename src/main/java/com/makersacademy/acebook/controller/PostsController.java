@@ -26,6 +26,8 @@ public class PostsController {
 
     @PostMapping("/posts")
     public RedirectView create(@ModelAttribute Post post) {
+        post.setLikes(0); // Set initial likes to 0
+        post.setDislikes(0); // Set initial dislikes to 0
         repository.save(post);
         return new RedirectView("/posts");
     }
